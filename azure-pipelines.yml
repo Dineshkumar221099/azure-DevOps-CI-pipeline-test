@@ -15,10 +15,17 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
+
       - task: Docker@2
         inputs:
          containerRegistry: 'kdacacr'
          repository: 'test'
          command: 'buildAndPush'
          Dockerfile: '**/Dockerfile'
+      # Task 2 publish build artifacts
+      - task: PublishBuildArtifacts@1
+        inputs:
+           PathtoPublish: '$(System.DefaultWorkingDirectory)/kube-manifests'
+           ArtifactName: 'kube-manifests'
+           publishLocation: 'Container'
 
