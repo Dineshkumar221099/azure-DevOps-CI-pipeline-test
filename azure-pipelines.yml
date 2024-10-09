@@ -1,6 +1,6 @@
 #this pipeline will be trigger to run by master branch of github repo. 
 trigger:
- - master
+ - main
 
 #add variables
 variables:
@@ -15,4 +15,10 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
+- task: Docker@2
+  inputs:
+    containerRegistry: 'kdacacr'
+    repository: 'test'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
 
